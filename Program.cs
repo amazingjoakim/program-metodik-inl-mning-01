@@ -29,16 +29,12 @@ namespace progmet_inlämning_01
                 else
                 {
                     Console.WriteLine(namn + adress + telefon + mail);
-
                 }
 
                 return namn + "-" + adress + "-" + telefon + "-" + mail;
             }
 
-
-
         }
-
 
         static void Main(string[] args)
         {
@@ -51,10 +47,8 @@ namespace progmet_inlämning_01
             Console.WriteLine("skriv in filnamn");
             textdokument = Console.ReadLine();
 
-            //puts file content to 
+            //puts file content to string array, source: https://www.c-sharpcorner.com/UploadFile/mahesh/how-to-read-a-text-file-in-C-Sharp/
             telbok = File.ReadAllLines(textdokument);
-
-
 
             //asigns file content to person list
             for (int i = 0; i < telbok.Length; i++)
@@ -62,7 +56,6 @@ namespace progmet_inlämning_01
                 k = telbok[i].Split('-');
                 folk.Add(new Person(k[0], k[1], k[2], k[3]));
             }
-
 
             do
             {
@@ -85,20 +78,21 @@ namespace progmet_inlämning_01
                     string adress;
                     string mail;
 
-                    Console.WriteLine("namn");
+                    Console.Write("namn: ");
                     namn = Console.ReadLine();
 
-                    Console.WriteLine("adress");
+                    Console.Write("adress: ");
                     adress = Console.ReadLine();
 
-                    Console.WriteLine("telefon nummer");
+                    Console.Write("telefon nummer: ");
                     tel = Console.ReadLine();
 
-                    Console.WriteLine("mail");
+                    Console.Write("mail: ");
                     mail = Console.ReadLine();
 
                     namn = namn + "-" + adress + "-" + tel + "-" + mail;
 
+                    //saves changes to file, source: https://www.c-sharpcorner.com/article/csharp-streamwriter-example/
                     using (StreamWriter outputFile = new StreamWriter(textdokument, true))
                     {
                         outputFile.WriteLine(namn);
@@ -131,7 +125,8 @@ namespace progmet_inlämning_01
                         }
                     }
                 }
-                else if(svar == "redigera kontakt" || svar == "4")
+
+                else if(svar == "redigera kontakt" || svar == "4") // edits contactinfo
                 {
                     Console.WriteLine();
                     Console.WriteLine("kontakt index");
@@ -144,27 +139,32 @@ namespace progmet_inlämning_01
                     Console.WriteLine("3: telefon");
                     Console.WriteLine("4: mail");
                     string info = Console.ReadLine();
+                    info.ToLower();
 
                     if(info == "namn" ||info == "1")
                     {
                         Console.Write("nytt namn: ");
                         folk[p].namn = Console.ReadLine();
                     }
+
                     else if(info == "adress" || svar == "2")
                     {
                         Console.Write("ny adress: ");
                         folk[p].adress = Console.ReadLine();
                     }
+
                     else if(info == "telefon" || info == "3")
                     {
                         Console.Write("nytt telefon nummer: ");
                         folk[p].telefon = Console.ReadLine();
                     }
+
                     else if(info == "mail" || info == "4")
                     {
                         Console.Write("nytt mail: ");
                         folk[p].mail = Console.ReadLine();
                     }
+
                     else
                     {
                         Console.WriteLine("okänd kommand");
@@ -179,8 +179,6 @@ namespace progmet_inlämning_01
                     }
 
                     Console.WriteLine("info redigerad");
-
-
                 }
                 else
                 {
@@ -188,10 +186,12 @@ namespace progmet_inlämning_01
                     Console.WriteLine();
                 }
 
-
             }
             while (svar != "sluta");//stops program
 
+            Console.WriteLine("adjö");
+
+            Console.ReadKey();
         }
     }
 }
